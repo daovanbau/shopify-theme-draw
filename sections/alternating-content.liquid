@@ -1,0 +1,68 @@
+{{ 'alternating-content.css' | asset_url | stylesheet_tag }}
+
+<div class="section-{{ section.id }} alternating-content" >
+  <div class="alternating-content__list">
+  {%- for block in section.blocks -%}
+    <div class="alternating-content__item {% cycle '', 'alternating-content__item--reverse' %}"  >
+      <div class="alternating-content__content">
+        <div class="alternating-content__wrapper">
+          {%- if block.settings.title != blank -%}
+            <h3>{{ block.settings.title }}</h3>
+          {%- endif -%}
+          <div class="alternating-content__description">
+            {{ block.settings.content }}
+          </div>
+        </div>
+      </div>
+      <div class="alternating-content__image">
+        <img src="{{ block.settings.image | image_url}}" width="auto" height="auto" alt="{{ block.settings.image.alt | escape }}">
+      </div>
+    </div>
+  {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.alternating_content.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.multirow.settings.header.content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app",
+    },
+    {
+      "type": "multi-content",
+      "name": "Multi content",
+      "settings":[
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "t:sections.alternating_content.name"
+    }
+  ]
+}
+{% endschema %}
