@@ -1,0 +1,124 @@
+{{ 'split-image.css' | asset_url | stylesheet_tag }}
+
+
+{% case section.settings.align_title %}
+{% when '1' %}{% assign align_title = 'left' %}
+{% when '2' %}{% assign align_title = 'center' %}
+{% else %}{% assign align_title = 'right' %}
+{% endcase %}
+
+{% case section.settings.align_description %}
+{% when 1 %}{% assign align_description = 'left' %}
+{% when 2 %}{% assign align_description = 'center' %}
+{% else %}{% assign align_description = 'right' %}
+{% endcase %}
+
+<div class="section section-{{ section.id }} split-image">
+  {%- if section.settings.title != blank -%}
+    <h3 class="split-image__title" align="{{ align_title }}">{{ section.settings.title }}</h3>
+  {%- endif -%}
+  
+  <div class="split-image__list">
+    {%- for block in section.blocks -%}
+        <div class="split-image__item">
+          <img class="split-image__image" src="{{ block.settings.image | image_url}}" alt="" width="auto" height="auto" alt="{{ block.settings.alt }}">
+        </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.description != blank -%}
+    <div class="split-image__description split-image__description--{{ align_description }}" align="{{ align_title }}">
+      {{ section.settings.description }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.split-img-showcase.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.multirow.settings.header.content"
+    },
+    {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "radio",
+      "id": "align_title",
+      "label": "Align title",
+      "options": [
+        {
+          "label": "Left",
+          "value": "1"
+        },
+        {
+          "label": "Center",
+          "value": "2"
+        },
+        {
+          "label": "Right",
+          "value": "3"
+        },
+      ],
+      "default": "2"
+    },
+    {
+      "type": "radio",
+      "id": "align_description",
+      "label": "Align title",
+      "options": [
+        {
+          "label": "Left",
+          "value": "1"
+        },
+        {
+          "label": "Center",
+          "value": "2"
+        },
+        {
+          "label": "Right",
+          "value": "3"
+        },
+      ],
+      "default": "2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app",
+    },
+    {
+      "type": "images",
+      "name": "Image",
+      "settings":[
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt image"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "t:sections.split-img-showcase.name"
+    }
+  ]
+}
+{% endschema %}

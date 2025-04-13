@@ -373,6 +373,9 @@
     }
   },
   "sections": {
+    "split-img-showcase":{
+      "name": "Split image showcase"
+    },
     "all": {
       "animation": {
         "content": "Animations",
