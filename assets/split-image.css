@@ -1,0 +1,31 @@
+.split-image{
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 12rem;
+}
+
+.split-image__title{
+    font-size: 50px;
+}
+
+.split-image__description{
+    margin: 57px 0;
+    padding: 0 0px;
+    line-height: 27px;
+    font-size: 19px;
+}
+
+.split-image__list{
+    display: flex;
+    gap: 40px;
+}
+
+.split-image__item{
+    width: 50%;
+}
+
+.split-image__image{
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+}
